@@ -32,11 +32,11 @@ void aggiungi (prodotto y,prodotto x[],int &d){
 void visualizza (prodotto x[], int d){
 	int i = 0;
 	while (i<d){
-		cout<<"inserisci il nome del prodotto :"<<x[i].nome;
+		cout<<"nome del prodotto :"<<x[i].nome;
 		cout<<endl;
-		cout<<"inserisci la categoria del prodotto :"<<x[i].categoria;
+		cout<<"categoria del prodotto :"<<x[i].categoria;
 		cout<<endl;
-		cout<<"inserisci il prezzo del prodotto :"<<x[i].prezzo;
+		cout<<"prezzo del prodotto :"<<x[i].prezzo;
 		cout<<endl;
 		i++;
 	}
@@ -47,11 +47,18 @@ void visualizza (prodotto x[], int d){
 
 
 
-void cerca (prodotto y, prodotto x[], int d, int &posizione){
-	
-	
-	
-	
+void cerca (string nome,prodotto x[], int d, int &posizione){
+	int i = 0;
+	while (i<d) {
+		if (nome == x[i].nome){
+			posizione = i;
+			cout<<i;
+			break;
+		}
+		i++;
+	}
+	if (i == d)
+	cout<<"prodotto non presente"<<endl;
 }
 
 
@@ -79,6 +86,7 @@ int main()
 	int d = 0;
 	int n=0;
 	int opzione;
+	int posizione = 0;
 	prodotto c;
 	do{
 		//visualizzazione voci
@@ -101,15 +109,19 @@ int main()
 				visualizza(sup , d );
 				break;
 			case 3:
-			    
-			//	cerca(,prodotti, int d = 100);
+			    {
+			string nomigniolo;
+			    cin>>nomigniolo;
+				cerca(nomigniolo, sup, d ,posizione);
 				break;
+					}
 			case 4:
+				int i=i++;
 			    
 			//	aggiungi(,prodotti, int d = 100);
 				break;
-			case 5:
-			    
+		//	case 5:
+			 int z=z++;
 			//	aggiungi(,prodotti, int d = 100);
 				break;
 				
