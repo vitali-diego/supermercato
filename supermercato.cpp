@@ -6,24 +6,26 @@ struct prodotto {
 		string nome;
 		string categoria;
 		float prezzo;
-   };
+   } appoggio;
    
+   void switchh( string x, string y){
+   	string at;
+   	at = x;
+   	x = y;
+   	y = at;
+   }
    
 //aggiungi variabili e dimensione una alla volta
 void aggiungi (prodotto y,prodotto x[],int &d){
-	prodotto c;
-	
-	cout<<"inserisci il nome del prodotto :";
-	cin>>c.nome;
-	cout<<endl;
-	cout<<"inserisci la categoria del prodotto :";
-	cin>>c.categoria;
-	cout<<endl;
-	cout<<"inserisci il prezzo del prodotto :";
-	cin>>c.prezzo;
-	cout<<endl;
-	x[d]=c;
-	
+	int i = d;
+	while (0 < i){
+		if ( x[i].nome > x[i-1].nome ){
+			switchh ( x[i].nome, x[i-1].nome);
+		}
+	i--;
+	}
+//	x[d]=c;
+	d++;
 }
 
 
@@ -58,24 +60,50 @@ void cerca (string nome,prodotto x[], int d, int &posizione){
 		i++;
 	}
 	if (i == d)
-	cout<<"prodotto non presente"<<endl;
+	posizione = -1;
 }
 
 
 
-bool cancella (prodotto y, prodotto x[], int d ){
-	
+void cancella (string nome, prodotto x[], int &d, bool &veross ){
+	int posizione = 0;
+	veross = false;
+	while (posizione<d){
+		if (nome == x[posizione].nome){
+			veross = true;
+			break;
+		}
+		posizione++;
+	}
+	if (veross == false)
+	cout<<"prodotto non presente";
+	else{
+	while (posizione<d-1){
+		appoggio = x[posizione];
+		x[posizione] = x[posizione + 1];
+		x[posizione + 1] = appoggio;
+		posizione++;
+		} 
+	d--;
+	}
+}
+
+void modifica (string nomigniolo_2, prodotto x[], int d ){
+    int posizione;
+    cerca (nomigniolo_2,x,d,posizione);
+	cout<<"inserisci il nome del prodotto :";
+	cin>>x[posizione].nome;
+	cout<<endl;
+	cout<<"inserisci la categoria del prodotto :";
+	cin>>x[posizione].categoria;
+	cout<<endl;
+	cout<<"inserisci il prezzo del prodotto :";
+	cin>>x[posizione].prezzo;
+	cout<<endl;
 	
 	
 }
 
-
-
-bool modifica (prodotto y, prodotto x[], int d ){
-	
-	
-	
-}
 
 
 
@@ -83,10 +111,12 @@ int main()
 {
    // crea una struttura con tre campi nome,prodotto,prezzo,categoria individua prodotto e array di prodotti  
 	prodotto sup[100];
+	int i = 0;	
 	int d = 0;
 	int n=0;
 	int opzione;
 	int posizione = 0;
+	bool veross;
 	prodotto c;
 	do{
 		//visualizzazione voci
@@ -101,8 +131,17 @@ int main()
 		
 		switch(opzione){
 			case 1:
+				
+				cout<<"inserisci il nome del prodotto :";
+				cin>>sup[i].nome;
+				cout<<endl;
+				cout<<"inserisci la categoria del prodotto :";
+				cin>>sup[i].categoria;
+				cout<<endl;
+				cout<<"inserisci il prezzo del prodotto :";
+				cin>>sup[i].prezzo;
+				i++;
 				aggiungi( c, sup, d);
-				d++;
 				break;
 			case 2:
 			    
@@ -111,20 +150,25 @@ int main()
 			case 3:
 			    {
 			string nomigniolo;
+				cout<<"inserisci il nome del prodotto la cui posizione vuoi sapere:";
 			    cin>>nomigniolo;
+				cout<<"la sua posizione e' :";
 				cerca(nomigniolo, sup, d ,posizione);
+				cout<<endl;
 				break;
 					}
-			case 4:
-				int i=i++;
-			    
-			//	aggiungi(,prodotti, int d = 100);
-				break;
-		//	case 5:
-			 int z=z++;
-			//	aggiungi(,prodotti, int d = 100);
-				break;
-				
+			case 4:{
+			string nomigniolo;
+			cout<<"inserisci il nome del prodotto che desideri cancellare:";
+			cin>>nomigniolo;
+			cancella(nomigniolo,sup,d,veross);
+				break;}
+			case 5:
+			string nomigniolo_2;
+			cout<<"inserisci il nome del prodotto che desideri modificare:";
+			cin>>nomigniolo_2;
+			modifica(nomigniolo_2,sup, d);
+			break;
 		}
 		
 	}while(opzione!=0);
